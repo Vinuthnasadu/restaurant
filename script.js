@@ -50,9 +50,7 @@ function takeOrder(data1){
         let burger3 = data1[burger3Index];
         let obj = {item1: `${burger1}`, item2: `${burger2}`, item3: `${burger3}`};
     return new Promise((resolve,reject)=>{
-        console.log(" User ordered following burgers");
         setTimeout(()=>{
-                console.log(`item 1: ${burger1} \nitem 2: ${burger2} \nitem 3: ${burger3}`);
                 document.getElementById('menu').classList.add('hide');
                 orderedItems.innerHTML += `<strong>
                 <li style="color:teal">Burger1: ${burger1}</li>
@@ -65,54 +63,45 @@ function takeOrder(data1){
         })
 }
 
-
-//order preparation function
 function orderPrep(){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             orderStatus.innerHTML += `<p style="color:navy;">items are added in your cart...</p>`
-            paymentStatus.innerHTML += `<h5 style="color:navy;">Please do payment to proceed further...</h5>`
-            console.log(` Order is recieved, payment is in processing...`);
-            console.log({order_status:true, paid:false});
+            paymentStatus.innerHTML += `<h5 style="color:navy;">Please do payment to proceed further</h5>`
+            console.log(` Order is recieved, payment is in processing`);
             resolve({order_status:true, paid:false})
         },1500)
     })
 }
 
 
-
-// pay order function
 function payOrder(){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             orderStatus.innerHTML=`<p style='display:none'></p>`
-            paymentStatus.innerHTML = `<h5 style="color:crimson;">Payment Recieved...</h5>`
-            console.log(` Payment recieved, Order is confirmed `);
-            console.log({order_status:true, paid:true});
+            paymentStatus.innerHTML = `<h5 style="color:crimson;">Payment Completed</h5>`
+            console.log(` Payment Is Completed, Order is confirmed `);
             resolve({order_status:true, paid:true})
         },1000)
     })
 }
 
-
-//thank you function
 function  thankyouFnc(){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             console.log(' Order delievered Thanks!');
             resolve(alert('Order delievered  Thanks!'))
-        },100)
+        },1000)
     })
 }
 
 
 
-//Promise chaining
 getMenu()
     .then((data1) => takeOrder(data1))
     .then(() => orderPrep())
     .then(() => payOrder())
     .then(() => thankyouFnc())
-    .catch((e) => {
-        console.log("ERROR>>>", e);
+    .catch((error) => {
+        console.log("ERROR>>>", error);
       });
